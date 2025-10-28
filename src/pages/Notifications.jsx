@@ -63,7 +63,7 @@ export default function Notifications() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50 font-[Raleway]">
+    <div className="flex min-h-screen bg-gray-50 font-century">
       {/* HEADER */}
       <div className="fixed top-0 left-0 w-full z-20">
         <Header showLogout />
@@ -77,7 +77,7 @@ export default function Notifications() {
       {/* MAIN CONTENT */}
       <div className="flex-1 ml-60 mt-[64px] p-8 flex justify-center items-center">
         <div className="bg-[#00b3a4] rounded-3xl shadow-lg text-center py-8 px-10 sm:px-14 md:px-20 w-full max-w-2xl">
-          <h2 className="text-white text-3xl sm:text-4xl font-semibold mb-8">
+          <h2 className="text-white text-3xl sm:text-4xl font-semibold mb-8 ">
             Notification
           </h2>
 

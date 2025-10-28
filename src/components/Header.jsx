@@ -32,35 +32,23 @@ export default function Header({ showLogout = false }) {
   };
 
   return (
-    <header className="bg-white shadow-sm px-6 py-3 flex items-center justify-between font-[Raleway] sticky top-0 z-20">
+    <header className="bg-white shadow-sm px-6 py-3 flex items-center justify-between font-century sticky top-0 z-20">
       {/* LEFT SIDE: LOGO + TITLE */}
       <div className="flex items-center space-x-2">
         <img
-          src="/doctor-icon.png"
-          alt="Doctor Consultation Logo"
+          src="/doctoricon.png"
           className="w-8 h-8 object-contain"
         />
         <div className="flex flex-col leading-tight">
           <h1 className="text-gray-900 text-sm sm:text-base font-semibold tracking-wide">
             Doctor Consultation
           </h1>
-          <span className="text-gray-500 text-xs">Patient Dashboard</span>
         </div>
       </div>
 
       {/* RIGHT SIDE CONTROLS */}
       <div className="flex items-center space-x-3 sm:space-x-4">
-        {/* Sort Dropdown */}
-        <select
-          className="border border-gray-300 text-sm rounded-md px-2 py-1.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#00b3a4]"
-          defaultValue=""
-        >
-          <option value="">Sort</option>
-          <option value="name">Name</option>
-          <option value="date">Date</option>
-          <option value="recent">Recent</option>
-        </select>
-
+  
         {/* Search Input */}
         <div className="flex items-center bg-gray-100 border border-gray-300 rounded-full px-3 py-1.5 w-36 sm:w-56 focus-within:ring-2 focus-within:ring-[#00b3a4] transition-all">
           <Search size={16} className="text-gray-500" />
@@ -72,12 +60,6 @@ export default function Header({ showLogout = false }) {
             onKeyDown={handleSearch}
             className="bg-transparent border-none outline-none text-sm text-gray-700 ml-2 w-full placeholder-gray-500"
           />
-        </div>
-
-        {/* Notification Bell */}
-        <div className="relative cursor-pointer hover:scale-105 transition-transform">
-          <Bell className="text-gray-700" size={20} />
-          <span className="absolute top-0 right-0 block h-2 w-2 bg-red-500 rounded-full"></span>
         </div>
 
         {/* Logout Button */}

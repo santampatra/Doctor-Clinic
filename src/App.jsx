@@ -24,7 +24,7 @@ export default function App() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 font-century">
       <Routes location={location} key={location.pathname}>
         
         {/* 🟩 Doctor Login (Public Route) */}

@@ -52,7 +52,7 @@ export default function Sidebar() {
 
   return (
     <aside
-      className="fixed top-[64px] left-0 w-60 bg-white shadow-md h-[calc(100vh-64px)] overflow-y-auto font-[Raleway] transition-all duration-300"
+      className="fixed top-[64px] left-0 w-60 bg-white shadow-md h-[calc(100vh-64px)] overflow-y-auto font-century transition-all duration-300"
     >
       <div className="flex flex-col space-y-5 w-full px-4 py-6">
         {menuItems.map((item) => (

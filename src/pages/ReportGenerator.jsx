@@ -1,16 +1,41 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import { Calendar, FileSpreadsheet } from "lucide-react";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+  Legend,
+} from "recharts";
 
 export default function ReportGenerator() {
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
   const [exporting, setExporting] = useState(false);
   const [message, setMessage] = useState("");
+  const [analyticsData, setAnalyticsData] = useState([]);
 
-  // ✅ Simulate Excel export
+  // ✅ (Future Integration)
+  // Replace with your backend API later
+  useEffect(() => {
+    setAnalyticsData([
+      { name: "Total Patients", value: 2148 },
+      { name: "New Patients (Month)", value: 53 },
+      { name: "New Patients (Year)", value: 589 },
+      { name: "Revenue (Month)", value: 1654 },
+      { name: "Revenue (Year)", value: 2796 },
+      { name: "Pending Payments", value: 1040 },
+    ]);
+  }, []);
+
+  // ✅ Handle Excel export
   const handleExport = async () => {
     if (!month || !year) {
       setMessage("⚠️ Please select both month and year.");
@@ -21,37 +46,21 @@ export default function ReportGenerator() {
     setMessage("");
 
     try {
-      // ✅ Future Integration:
-      // await fetch("http://localhost:5000/api/reports/export", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ month, year }),
-      // });
+      // Future API integration
+      // await fetch("http://localhost:5000/api/reports/export", { ... })
 
-      console.log(`Export report for: ${month} ${year}`);
       setTimeout(() => {
         setExporting(false);
         setMessage(`✅ Report exported successfully for ${month}, ${year}!`);
-      }, 1200);
-    } catch (error) {
-      console.error(error);
+      }, 1000);
+    } catch {
       setMessage("❌ Export failed. Please try again.");
       setExporting(false);
     }
   };
 
-  // ✅ Temporary static data (to be fetched later from backend)
-  const analyticsData = [
-    { label: "Total Patients", value: 2148, color: "#00b3a4" },
-    { label: "New Patients (Month)", value: 53, color: "#00b3a4" },
-    { label: "New Patients (Year)", value: 589, color: "#00b3a4" },
-    { label: "Total Revenue Generated (Month)", value: "16534 Rs", color: "#00b3a4" },
-    { label: "Total Revenue Generated (Year)", value: "275096 Rs", color: "#00b3a4" },
-    { label: "Total Pending Payments", value: "10340 Rs", color: "#ff5b5b" },
-  ];
-
   return (
-    <div className="flex min-h-screen bg-gray-50 font-[Raleway]">
+    <div className="flex min-h-screen bg-gray-50 font-century">
       {/* HEADER */}
       <div className="fixed top-0 left-0 w-full z-20">
         <Header showLogout />
@@ -63,57 +72,96 @@ export default function ReportGenerator() {
       </div>
 
       {/* MAIN CONTENT */}
-      <div className="flex-1 ml-60 mt-[64px] p-8 flex flex-col md:flex-row gap-6 justify-center items-start">
-        {/* LEFT SIDE - ANALYTICS */}
-        <div className="bg-white rounded-3xl shadow-md p-8 w-full md:w-[60%]">
-          <h2 className="text-[#00b3a4] text-2xl font-semibold mb-6">Analytics</h2>
+      <div className="flex-1 ml-60 mt-[64px] p-8 flex flex-col md:flex-row gap-8 justify-between">
+        {/* LEFT - ANALYTICS CARD */}
+        <div className="bg-white rounded-3xl shadow-xl p-8 w-full md:w-[60%] transition-all hover:shadow-2xl">
+          <h2 className="text-[#00b3a4] text-2xl font-semibold mb-6 tracking-wide">
+            Analytics Overview
+          </h2>
 
-          <div className="space-y-5">
-            {analyticsData.map((item, idx) => (
-              <div key={idx} className="flex items-center justify-between">
-                <div className="flex items-center space-x-4 w-full">
-                  <div className="w-56 sm:w-64 text-gray-700 text-sm font-medium">
-                    {item.label}
-                  </div>
+          {/* BEAUTIFIED CHART */}
+          <div className="h-[400px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={analyticsData}
+                margin={{ top: 10, right: 30, left: 10, bottom: 60 }}
+              >
+                <defs>
+                  <linearGradient id="tealGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#00d5c0" stopOpacity={0.9} />
+                    <stop offset="100%" stopColor="#00b3a4" stopOpacity={0.9} />
+                  </linearGradient>
+                </defs>
 
-                  <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <div
-                      className="h-2 rounded-full transition-all duration-300"
-                      style={{
-                        width: `${Math.min(
-                          typeof item.value === "number" ? item.value / 25 : 100,
-                          100
-                        )}%`,
-                        backgroundColor: item.color,
-                      }}
-                    ></div>
-                  </div>
-
-                  <div
-                    className={`text-sm font-semibold text-right w-16 ${
-                      item.color === "#ff5b5b" ? "text-[#ff5b5b]" : "text-[#00b3a4]"
-                    }`}
-                  >
-                    {item.value}
-                  </div>
-                </div>
-              </div>
-            ))}
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                <XAxis
+                  dataKey="name"
+                  tick={{ fontSize: 12, fill: "#4b5563" }}
+                  interval={0}
+                  angle={-25}
+                  textAnchor="end"
+                  height={60}
+                />
+                <YAxis
+                  tick={{ fontSize: 12, fill: "#4b5563" }}
+                  tickFormatter={(v) =>
+                    v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v
+                  }
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "white",
+                    border: "1px solid #e5e7eb",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
+                    fontSize: "12px",
+                    color: "#333",
+                  }}
+                  cursor={{ fill: "rgba(0,179,164,0.05)" }}
+                />
+                <Legend
+                  wrapperStyle={{
+                    paddingTop: "10px",
+                    fontSize: "12px",
+                  }}
+                />
+                <Bar
+                  dataKey="value"
+                  fill="url(#tealGradient)"
+                  radius={[10, 10, 0, 0]}
+                  barSize={40}
+                >
+                  {analyticsData.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={
+                        entry.name === "Pending Payments"
+                          ? "#ff6b6b"
+                          : "url(#tealGradient)"
+                      }
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
-        {/* RIGHT SIDE - EXPORT REPORT */}
+        {/* RIGHT - EXPORT CARD */}
         <div className="bg-[#00b3a4] rounded-3xl shadow-lg p-8 w-full md:w-[35%] text-white">
           <h2 className="text-2xl font-semibold mb-3">Export Reports</h2>
           <p className="text-white/90 text-sm mb-6 leading-relaxed">
-            Download complete diagnostic records, billing, and financial summaries
-            in Excel format for backup or reporting purposes.
+            Download diagnostic, billing, and financial summaries in Excel
+            format for backup or reporting purposes.
           </p>
 
+          {/* Select Inputs */}
           <div className="space-y-4">
-            {/* Select Month */}
             <div className="relative">
-              <Calendar className="absolute left-3 top-2.5 text-gray-400" size={18} />
+              <Calendar
+                className="absolute left-3 top-2.5 text-gray-400"
+                size={18}
+              />
               <select
                 value={month}
                 onChange={(e) => setMonth(e.target.value)}
@@ -141,9 +189,11 @@ export default function ReportGenerator() {
               </select>
             </div>
 
-            {/* Select Year */}
             <div className="relative">
-              <Calendar className="absolute left-3 top-2.5 text-gray-400" size={18} />
+              <Calendar
+                className="absolute left-3 top-2.5 text-gray-400"
+                size={18}
+              />
               <select
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
@@ -171,7 +221,7 @@ export default function ReportGenerator() {
             </button>
           </div>
 
-          {/* Status Message */}
+          {/* Message */}
           {message && (
             <p className="mt-6 bg-white/10 text-white text-sm px-4 py-2 rounded-md text-center">
               {message}

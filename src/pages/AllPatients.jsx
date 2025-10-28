@@ -14,23 +14,12 @@ export default function AllPatients() {
     if (!doctorAuth) navigate("/");
   }, [navigate]);
 
-  // ✅ Future Integration:
-  // Fetch patient list from MongoDB API here
-  // Example:
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/api/patients")
-  //     .then((res) => res.json())
-  //     .then((data) => setPatients(data))
-  //     .catch((err) => console.error(err));
-  // }, []);
-
-  // ✅ Temporary static data for demo
+  // ✅ Temporary static data (without normal ID)
   useEffect(() => {
     setPatients([
       {
-        id: "DC-2025-001",
-        patientCode: "P1001",
-        name: "Mr. John Doe",
+        patientId: "P1001",
+        name: "Mr. Souvik Patra",
         phone: "9999999999",
         email: "example@email.com",
         due: "5500",
@@ -46,9 +35,8 @@ export default function AllPatients() {
         address: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       },
       {
-        id: "DC-2025-002",
-        patientCode: "P1002",
-        name: "Ms. Jane Smith",
+        patientId: "P1002",
+        name: "Mr. Sakti Dey",
         phone: "8888888888",
         email: "jane@example.com",
         due: "6500",
@@ -64,9 +52,8 @@ export default function AllPatients() {
         address: "123 Street, New York City",
       },
       {
-        id: "DC-2025-003",
-        patientCode: "P1003",
-        name: "Mr. Alex Ray",
+        patientId: "P1003",
+        name: "Mr. Sourav Ray",
         phone: "7777777777",
         email: "alex@example.com",
         due: "4500",
@@ -86,17 +73,17 @@ export default function AllPatients() {
 
   // ✅ Handle "View" button click → Navigate to patient profile
   const handleView = (patient) => {
-    navigate(`/patient/${patient.patientCode}`, { state: patient });
+    navigate(`/patient/${patient.patientId}`, { state: patient });
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50 font-[Raleway]">
+    <div className="flex min-h-screen bg-gray-50 font-century">
       {/* FIXED HEADER */}
       <div className="fixed top-0 left-0 w-full z-20">
         <Header showLogout />
       </div>
 
-      {/* SIDEBAR (below header) */}
+      {/* SIDEBAR */}
       <div className="fixed top-[64px] left-0 w-60 h-[calc(100vh-64px)] bg-white shadow-md z-10 overflow-y-auto">
         <Sidebar />
       </div>
@@ -113,7 +100,7 @@ export default function AllPatients() {
           <table className="min-w-full border border-gray-200 bg-white rounded-lg shadow-sm">
             <thead>
               <tr className="bg-gray-100 text-gray-700 text-sm font-medium">
-                <th className="py-3 px-4 text-left border-b">Patient Code</th>
+                <th className="py-3 px-4 text-left border-b">Patient ID</th>
                 <th className="py-3 px-4 text-left border-b">Patient Name</th>
                 <th className="py-3 px-4 text-left border-b">Phone</th>
                 <th className="py-3 px-4 text-left border-b">Email</th>
@@ -130,7 +117,7 @@ export default function AllPatients() {
                   key={index}
                   className="hover:bg-gray-50 text-gray-700 text-sm border-b transition-all"
                 >
-                  <td className="py-3 px-4">{p.patientCode}</td>
+                  <td className="py-3 px-4">{p.patientId}</td>
                   <td className="py-3 px-4">{p.name}</td>
                   <td className="py-3 px-4">{p.phone}</td>
                   <td className="py-3 px-4">{p.email}</td>

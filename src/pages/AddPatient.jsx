@@ -15,8 +15,6 @@ export default function AddPatient() {
     phone: "",
     email: "",
     address: "",
-    bloodGroup: "",
-    heightWeight: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -33,7 +31,7 @@ export default function AddPatient() {
     setMessage("");
 
     try {
-      // ✅ Future Integration (MongoDB API)
+      // ✅ Future Backend Integration
       // await fetch("http://localhost:5000/api/patients", {
       //   method: "POST",
       //   headers: { "Content-Type": "application/json" },
@@ -55,7 +53,7 @@ export default function AddPatient() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50 font-[Raleway]">
+    <div className="flex min-h-screen bg-gray-50 font-century">
       {/* HEADER */}
       <div className="fixed top-0 left-0 w-full z-20">
         <Header showLogout />
@@ -68,18 +66,18 @@ export default function AddPatient() {
 
       {/* MAIN CONTENT */}
       <div className="flex-1 ml-60 mt-[64px] p-8">
-        <div className="bg-[#00b3a4] rounded-3xl shadow-lg text-center py-8 px-8 sm:px-12 md:px-16 max-w-4xl mx-auto">
-          <h2 className="text-white text-3xl sm:text-4xl font-semibold mb-6">
+        <div className="bg-[#00b3a4] rounded-3xl shadow-lg text-center py-10 px-10 sm:px-14 md:px-16 max-w-4xl mx-auto">
+          <h2 className="text-white text-3xl sm:text-4xl font-semibold mb-8">
             Add A New Patient
           </h2>
 
           {/* FORM GRID */}
           <form
             onSubmit={handleSubmit}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left justify-center"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-left justify-center"
           >
             {/* LEFT COLUMN */}
-            <div className="space-y-3.5">
+            <div className="space-y-4">
               <input
                 type="text"
                 name="name"
@@ -87,8 +85,9 @@ export default function AddPatient() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full p-2.5 rounded-full bg-white text-gray-800 placeholder-gray-500 text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
+                className="w-full p-3 rounded-full bg-white text-gray-800 placeholder-gray-500 text-sm sm:text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
               />
+
               <input
                 type="text"
                 name="gender"
@@ -96,8 +95,9 @@ export default function AddPatient() {
                 value={formData.gender}
                 onChange={handleChange}
                 required
-                className="w-full p-2.5 rounded-full bg-white text-gray-800 placeholder-gray-500 text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
+                className="w-full p-3 rounded-full bg-white text-gray-800 placeholder-gray-500 text-sm sm:text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
               />
+
               <input
                 type="number"
                 name="age"
@@ -105,30 +105,12 @@ export default function AddPatient() {
                 value={formData.age}
                 onChange={handleChange}
                 required
-                className="w-full p-2.5 rounded-full bg-white text-gray-800 placeholder-gray-500 text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
-              />
-              <input
-                type="date"
-                name="dob"
-                placeholder="Patient Date Of Birth"
-                value={formData.dob}
-                onChange={handleChange}
-                required
-                className="w-full p-2.5 rounded-full bg-white text-gray-800 text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
-              />
-              <input
-                type="date"
-                name="regDate"
-                placeholder="Registration Date"
-                value={formData.regDate}
-                onChange={handleChange}
-                required
-                className="w-full p-2.5 rounded-full bg-white text-gray-800 text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
+                className="w-full p-3 rounded-full bg-white text-gray-800 placeholder-gray-500 text-sm sm:text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
               />
             </div>
 
             {/* RIGHT COLUMN */}
-            <div className="space-y-3.5">
+            <div className="space-y-4">
               <input
                 type="text"
                 name="phone"
@@ -136,16 +118,18 @@ export default function AddPatient() {
                 value={formData.phone}
                 onChange={handleChange}
                 required
-                className="w-full p-2.5 rounded-full bg-white text-gray-800 placeholder-gray-500 text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
+                className="w-full p-3 rounded-full bg-white text-gray-800 placeholder-gray-500 text-sm sm:text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
               />
+
               <input
                 type="email"
                 name="email"
                 placeholder="Patient Email (if applicable)"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full p-2.5 rounded-full bg-white text-gray-800 placeholder-gray-500 text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
+                className="w-full p-3 rounded-full bg-white text-gray-800 placeholder-gray-500 text-sm sm:text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
               />
+
               <input
                 type="text"
                 name="address"
@@ -153,36 +137,51 @@ export default function AddPatient() {
                 value={formData.address}
                 onChange={handleChange}
                 required
-                className="w-full p-2.5 rounded-full bg-white text-gray-800 placeholder-gray-500 text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
-              />
-              <input
-                type="text"
-                name="bloodGroup"
-                placeholder="Blood Group"
-                value={formData.bloodGroup}
-                onChange={handleChange}
-                required
-                className="w-full p-2.5 rounded-full bg-white text-gray-800 placeholder-gray-500 text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
-              />
-              <input
-                type="text"
-                name="heightWeight"
-                placeholder="Height or Weight"
-                value={formData.heightWeight}
-                onChange={handleChange}
-                required
-                className="w-full p-2.5 rounded-full bg-white text-gray-800 placeholder-gray-500 text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
+                className="w-full p-3 rounded-full bg-white text-gray-800 placeholder-gray-500 text-sm sm:text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
               />
             </div>
 
+            {/* DATES ROW (SIDE BY SIDE) */}
+            <div className="col-span-1 sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-5 mt-1">
+              <div>
+                <label className="block text-white text-sm mb-1 ml-2">
+                  Date of Birth
+                </label>
+                <input
+                  type="date"
+                  name="dob"
+                  value={formData.dob}
+                  onChange={handleChange}
+                  required
+                  placeholder="dd-mm-yyyy"
+                  className="w-full p-3 rounded-full bg-white text-gray-800 placeholder-gray-500 text-sm sm:text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-white text-sm mb-1 ml-2">
+                  Registration Date
+                </label>
+                <input
+                  type="date"
+                  name="regDate"
+                  value={formData.regDate}
+                  onChange={handleChange}
+                  required
+                  placeholder="dd-mm-yyyy"
+                  className="w-full p-3 rounded-full bg-white text-gray-800 placeholder-gray-500 text-sm sm:text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-[#004d46]"
+                />
+              </div>
+            </div>
+
             {/* SUBMIT BUTTON */}
-            <div className="col-span-1 sm:col-span-2 text-center mt-6">
+            <div className="col-span-1 sm:col-span-2 text-center mt-8">
               <button
                 type="submit"
                 disabled={loading}
                 className={`${
                   loading ? "opacity-70 cursor-not-allowed" : ""
-                } bg-[#004d46] hover:bg-[#003a36] text-white px-10 py-2.5 rounded-md text-base transition-all shadow-md`}
+                } bg-[#004d46] hover:bg-[#003a36] text-white px-10 py-3 rounded-md text-base transition-all shadow-md`}
               >
                 {loading ? "Adding..." : "Add Patient →"}
               </button>
@@ -191,7 +190,7 @@ export default function AddPatient() {
 
           {/* MESSAGE */}
           {message && (
-            <p className="mt-5 text-white/90 bg-white/10 px-3 py-2 rounded-md text-sm w-64 sm:w-80 md:w-96 mx-auto">
+            <p className="mt-6 text-white/90 bg-white/10 px-3 py-2 rounded-md text-sm w-64 sm:w-80 md:w-96 mx-auto">
               {message}
             </p>
           )}

@@ -27,21 +27,19 @@ export default function DoctorLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col font-[Raleway]">
+    <div className="min-h-screen bg-gray-100 flex flex-col font-century">
 
       {/* HEADER */}
       <header className="bg-white shadow-md py-4 px-8 flex items-center justify-center sm:justify-start">
         <div className="flex items-center space-x-3">
           <img
-            src="/doctor-icon.png" // <-- Replace with your logo path
-            alt="Doctor Consultation Logo"
+            src="/doctoricon.png" // <-- Replace with your logo path
             className="w-10 h-10"
           />
           <div className="flex flex-col leading-tight">
             <h1 className="text-gray-800 text-xl sm:text-2xl font-semibold tracking-wide">
               Doctor Consultation
             </h1>
-            <span className="text-gray-500 text-xs sm:text-sm">Professional Care Online</span>
           </div>
         </div>
       </header>
