@@ -74,15 +74,26 @@ export default function PatientProfile() {
     alert("✅ Due balance updated successfully!");
   };
 
-  // ✅ Record Attendance
-  const handleAttendance = async () => {
+  // ✅ Record Attendance (AM/PM format + subtract 1 day)
+  const handleAttendance = () => {
     const now = new Date();
     const newRecord = {
-      date: now.toLocaleDateString(),
-      time: now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      date: now.toLocaleDateString("en-IN"), // ✅ Local format (DD/MM/YYYY)
+      time: now.toLocaleTimeString("en-IN", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true, // ✅ AM/PM format
+      }),
     };
 
+    // ✅ Add to Attendance History table
     setAttendanceHistory((prev) => [newRecord, ...prev]);
+
+    // ✅ Subtract one day from remaining (min 0)
+    setDaysRemaining((prev) => Math.max(0, prev - 1));
+
+    // Optional feedback
+    alert(`✅ Attendance added for ${newRecord.date} (${newRecord.time})`);
   };
 
   // ✅ Save Days Remaining
@@ -244,12 +255,9 @@ export default function PatientProfile() {
 
             {/* ATTENDANCE + DAYS REMAINING */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              {/* Attendance & Payments */}
+              {/* Payments */}
               <div className="bg-[#00b3a4] text-white border rounded-lg p-5 shadow-md">
-                <h3 className="text-lg font-semibold mb-4">
-                  Attendance & Payments
-                </h3>
-
+                <h3 className="text-lg font-semibold mb-4">Payments</h3>
                 <div className="flex items-center space-x-2 mb-4">
                   <input
                     type="number"
@@ -301,7 +309,6 @@ export default function PatientProfile() {
                       Edit
                     </button>
                   )}
-
                   <button
                     onClick={handleAttendance}
                     className="bg-[#008173] hover:bg-[#006e62] text-white px-3 py-2 rounded-md text-sm font-medium transition-all"
@@ -398,12 +405,6 @@ export default function PatientProfile() {
                   <h4 className="text-gray-800 font-semibold">
                     Attendance History
                   </h4>
-                  <button
-                    onClick={toggleEditAttendance}
-                    className="text-sm text-[#00b3a4] hover:underline"
-                  >
-                    {isEditingAttendance ? "Save" : "Edit"}
-                  </button>
                 </div>
 
                 <table className="min-w-full text-sm text-gray-700 border">
